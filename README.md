@@ -125,20 +125,6 @@ python -c "from voxblox import FastTsdfIntegrator; print('Voxblox import success
 python -m pip show voxblox
 ```
 
-The tested local installation reports:
-
-```text
-Name: voxblox
-Version: 0.1
-```
-
-For a fixed archival release, record and pin the exact `voxblox_pybind` commit used for testing:
-
-```bash
-cd voxblox_pybind
-git rev-parse HEAD
-```
-
 Then check out that commit before installation:
 
 ```bash
