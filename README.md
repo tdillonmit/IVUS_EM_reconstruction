@@ -44,17 +44,15 @@ When a named dataset is requested and is not already present, `run_mapping.py` d
 
 ## System requirements
 
-The software was tested in the following environment:
+The software was tested in the following system requirements:
 
 - Ubuntu/Linux
 - Python 3.9
 - A graphical desktop session capable of displaying Open3D and OpenCV windows
 - A C++ compiler and CMake for building the Voxblox Python bindings
-- Sufficient disk space for the selected Zenodo dataset and generated outputs
+- At least ~500 MB of open disk space for the selected Zenodo dataset and generated outputs
 
 A CUDA-compatible GPU is optional for TensorFlow inference. TensorFlow uses an available compatible GPU when one is visible to the installed TensorFlow build; otherwise it runs supported operations on the CPU. CPU execution is expected to be slower.
-
-The current script is not headless: it creates an Open3D visualization window and an OpenCV segmentation window. Run it from a local graphical session or a correctly configured remote graphical session.
 
 ## Python environment
 
