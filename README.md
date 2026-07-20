@@ -9,17 +9,6 @@ This repository performs learned intravascular ultrasound (IVUS) segmentation an
 
 ## Repository contents
 
-```text
-.
-├── run_mapping.py
-├── segmentation_helpers_runtime.py
-├── reconstruction_helpers_runtime.py
-├── aortascope_mapping_params.yaml
-├── calibration_parameters_ivus.yaml
-├── requirements.txt
-└── README.md
-```
-
 The files have the following roles:
 
 - `run_mapping.py` — command-line entry point, dataset download, replay, reconstruction, visualization, and output export.
