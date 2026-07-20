@@ -135,7 +135,7 @@ git submodule update --init --recursive
 make install
 ```
 
-## Model weights
+## DeepLumen Model weights
 
 The trained DeepLumen model weights are downloaded from Zenodo by the current script and can be found [here](https://zenodo.org/records/21461780)
 
