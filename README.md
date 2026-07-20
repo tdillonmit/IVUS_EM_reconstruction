@@ -1,4 +1,4 @@
-# IVUS–EM Reconstruction
+# IVUS–EM Segmentation & Reconstruction
 
 Offline reconstruction software accompanying:
 
