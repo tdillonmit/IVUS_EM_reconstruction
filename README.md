@@ -204,137 +204,6 @@ python run_mapping.py \
 
 The supplied directory, or one of its subdirectories, must contain an accepted image folder and an accepted EM-transform folder.
 
-### Use a different data root
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --data-root /absolute/path/to/data
-```
-
-### Override the mapping configuration
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --config /absolute/path/to/aortascope_mapping_params.yaml
-```
-
-### Override the model weights
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --model /absolute/path/to/model.weights.h5
-```
-
-### Choose the output directory
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --output-dir /absolute/path/to/results/patient_1
-```
-
-### Require an existing local dataset
-
-Use `--no-download` to prevent network access:
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --no-download
-```
-
-The dataset must already exist under:
-
-```text
-<data-root>/patient_1/
-```
-
-### Redownload a dataset
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --force-download
-```
-
-This removes an existing cached archive when necessary, downloads a fresh copy, verifies its checksum, and re-extracts the selected dataset.
-
-`--force-download` applies only to `--dataset-name`, not to `--dataset-path`.
-
-## Outputs
-
-By default, outputs are saved under:
-
-```text
-outputs/<dataset_name>/
-```
-
-For example:
-
-```text
-outputs/patient_1/
-├── lumen_mesh.ply
-├── lumen_point_cloud.ply
-├── branch_point_cloud.ply
-├── segmentation_preview.png
-└── run_summary.json
-```
-
-The files contain:
-
-- `lumen_mesh.ply` — reconstructed lumen surface mesh.
-- `lumen_point_cloud.ply` — accumulated lumen point cloud.
-- `branch_point_cloud.ply` — accumulated branch-region point cloud.
-- `segmentation_preview.png` — most recent successful segmentation overlay.
-- `run_summary.json` — compact run metadata.
-
-Example `run_summary.json`:
-
-```json
-{
-  "dataset": "patient_1",
-  "runtime_seconds": 180.2,
-  "model": "model.weights.h5",
-  "voxel_size": 0.002,
-  "outputs": {
-    "lumen_mesh": "lumen_mesh.ply",
-    "lumen_point_cloud": "lumen_point_cloud.ply",
-    "branch_point_cloud": "branch_point_cloud.ply",
-    "segmentation_preview": "segmentation_preview.png"
-  }
-}
-```
-
-The output summary intentionally does not report loaded, processed, or skipped-frame counts.
-
-The script raises an error instead of writing a successful summary when it does not produce a required mesh, point cloud, or segmentation preview.
-
-## Runtime
-
-Runtime depends on:
-
-- dataset length;
-- CPU and GPU hardware;
-- TensorFlow device availability;
-- voxel size;
-- visualization overhead;
-- model and reconstruction configuration.
-
-The exact end-to-end runtime for each successful run is written to `run_summary.json`.
-
-Before reviewer release, record at least one measured reference runtime here:
-
-```text
-Reference dataset:
-Tested hardware:
-TensorFlow device:
-Runtime:
-```
-
-Do not report an estimated value as a benchmark; use a completed run from the released code and environment.
 
 ## Configuration
 
@@ -346,44 +215,16 @@ aortascope_mapping_params.yaml
 
 Important parameters include:
 
-```text
-gating
-tsdf_map
-voxel_size
-hybrid_seg
-conf_threshold
-deeplumen_on
-deeplumen_slim_on
-deeplumen_lstm_on
-endoanchor
-model_path
-vpC_map
-orifice_center_map
-machine
-figure_mapping
-```
-
-For the reviewer workflow described here:
-
 - `deeplumen_on` should enable the released DeepLumen model.
 - `tsdf_map` should enable TSDF reconstruction.
 - `model_path` must point to the released model weights unless `--model` is supplied.
-- `machine` must match the acquisition format expected by the image-cropping code.
-- `voxel_size` should match the value used to generate the reported reconstruction.
+- `voxel_size` TSDF voxel value resolution
 
 The released YAML file should contain the exact settings used for the manuscript results.
 
 ## Using a local dataset
 
-An already extracted dataset may be supplied with:
-
-```bash
-python run_mapping.py \
-    --dataset-path /absolute/path/to/dataset \
-    --model /absolute/path/to/model.weights.h5
-```
-
-A minimal expected layout is:
+User datasets may also be used. A minimal expected dataset layout is:
 
 ```text
 dataset/
@@ -402,65 +243,6 @@ Alternate accepted image and transform folder names are listed in the Data secti
 
 Image and transform files are sorted naturally by their numeric frame indices. The number of image files must equal the number of transform files, and every transform must have shape `(4, 4)`.
 
-## GPU and CPU execution
-
-No command-line device flag is required for normal TensorFlow behavior.
-
-To inspect available TensorFlow devices:
-
-```bash
-python - <<'PY'
-import tensorflow as tf
-
-print("GPUs:", tf.config.list_physical_devices("GPU"))
-print("CPUs:", tf.config.list_physical_devices("CPU"))
-PY
-```
-
-When no compatible GPU is visible, TensorFlow uses the CPU for supported operations. A machine having an NVIDIA GPU is not sufficient by itself; the TensorFlow installation, drivers, and runtime libraries must also expose the device to TensorFlow.
-
-For reproducible CPU testing, run in a new shell with:
-
-```bash
-CUDA_VISIBLE_DEVICES=-1 python run_mapping.py --dataset-name patient_1
-```
-
-CPU-only execution should be tested before release when CPU support is claimed.
-
-## Verification
-
-Verify the Python source files compile:
-
-```bash
-python -m py_compile \
-    run_mapping.py \
-    segmentation_helpers_runtime.py \
-    reconstruction_helpers_runtime.py
-```
-
-Verify the main imports:
-
-```bash
-python - <<'PY'
-import cv2
-import numpy
-import open3d
-import scipy
-import tensorflow
-import yaml
-from voxblox import FastTsdfIntegrator
-
-print("All required imports succeeded.")
-PY
-```
-
-Check the command-line interface:
-
-```bash
-python run_mapping.py --help
-```
-
-Run one complete dataset and confirm that all five output files are created.
 
 ## Troubleshooting
 
@@ -494,25 +276,6 @@ Also verify `model_path` in `aortascope_mapping_params.yaml`.
 
 Make sure `calibration_parameters_ivus.yaml` is present beside the Python scripts and that the selected dataset contains its acquisition-specific calibration file when required.
 
-### Open3D or OpenCV window errors
-
-The current implementation requires a graphical display. Confirm that the `DISPLAY` environment variable is configured:
-
-```bash
-echo "$DISPLAY"
-```
-
-Run locally from a graphical desktop session or configure X forwarding correctly. A headless server requires code changes or a virtual display.
-
-### Dataset exists but has the wrong structure
-
-A named dataset directory must contain both an accepted image folder and an accepted transform folder. Remove the incomplete directory or rerun:
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --force-download
-```
 
 ### TensorFlow does not detect the GPU
 
