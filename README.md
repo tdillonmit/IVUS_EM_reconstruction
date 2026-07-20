@@ -44,7 +44,7 @@ When a named dataset is requested and is not already present, `run_mapping.py` d
 
 ## System requirements
 
-The tested software environment uses:
+The software was tested in the following environment:
 
 - Ubuntu/Linux
 - Python 3.9
