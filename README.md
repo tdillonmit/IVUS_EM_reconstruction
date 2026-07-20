@@ -229,6 +229,74 @@ Alternate accepted image and transform folder names are listed in the Data secti
 
 Image and transform files are sorted naturally by their numeric frame indices. The number of image files must equal the number of transform files, and every transform must have shape `(4, 4)`.
 
+## Outputs
+
+By default, outputs are saved under:
+
+```text
+outputs/<dataset_name>/
+```
+
+For example:
+
+```text
+outputs/patient_1/
+├── lumen_mesh.ply
+├── lumen_point_cloud.ply
+├── branch_point_cloud.ply
+├── segmentation_preview.png
+└── run_summary.json
+```
+
+The files contain:
+
+- `lumen_mesh.ply` — reconstructed lumen surface mesh.
+- `lumen_point_cloud.ply` — accumulated lumen point cloud.
+- `branch_point_cloud.ply` — accumulated branch-region point cloud.
+- `segmentation_preview.png` — most recent successful segmentation overlay.
+- `run_summary.json` — compact run metadata.
+
+Example `run_summary.json`:
+
+```json
+{
+  "dataset": "patient_1",
+  "runtime_seconds": 180.2,
+  "model": "model.weights.h5",
+  "voxel_size": 0.002,
+  "outputs": {
+    "lumen_mesh": "lumen_mesh.ply",
+    "lumen_point_cloud": "lumen_point_cloud.ply",
+    "branch_point_cloud": "branch_point_cloud.ply",
+    "segmentation_preview": "segmentation_preview.png"
+  }
+}
+```
+
+The script raises an error instead of writing a successful summary when it does not produce a required mesh, point cloud, or segmentation preview.
+
+## Runtime
+
+Runtime depends on:
+
+- dataset length;
+- CPU and GPU hardware;
+- TensorFlow device availability;
+- voxel size;
+- visualization overhead;
+- model and reconstruction configuration.
+
+Runtime for each dataset is typically approximately 2–3 minutes on a modern NVIDIA GPU. The exact end-to-end runtime for each successful run is written to `run_summary.json`.
+
+Before reviewer release, record at least one measured reference runtime here:
+
+```text
+Reference dataset:
+Tested hardware:
+TensorFlow device:
+Runtime:
+```
+
 
 ## Troubleshooting
 
