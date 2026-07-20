@@ -279,16 +279,9 @@ class PointCloudUpdater:
                 self.vis.add_geometry(self.volumetric_far_point_cloud)
 
         
-
-        
-
-    
         self.branch_pass = 0
         
-        time.sleep(2)
        
-
-
         self.dest_frame = 'target1'
 
 
@@ -753,12 +746,7 @@ class PointCloudUpdater:
         return largest_mask
     
 
-    
-
-    
- 
-
-
+    # primary reconstruction function that runs for each IVUS-EM measurement pair
     def append_image_transform_pair(self, TW_EM, grayscale_image, prior_phase = None):
 
 
@@ -788,35 +776,7 @@ class PointCloudUpdater:
         mask_2=None
        
 
-        # first return segmentation
-        
-
-        if(self.hybrid_seg == 1): 
-
-
-          
-            mask_1 = np.zeros_like(grayscale_image, dtype=np.uint8)  # Create a black mask
-            
-
-            filtered_image, labels, stats=morphological_processing(grayscale_image, self.median_kernel,self.closing_kernel, self.min_component_size, threshold)
-            
-          
-            _, _, spline_pixels = spline_first_return_segmentation(filtered_image,threshold, crop_index,self.gridlines,self.thickness, self.saturation_value, original_image, labels, stats, self.area_threshold, centre_x,centre_y, self.previous_no_points)
-           
-
-            cv2.fillPoly(mask_1, [spline_pixels], 255)  # Filled white ellipse on black mask
-       
-
-            
-
-            mask_1_hybrid = cv2.resize(mask_1, (224, 224))
-
-
-        original_image = cv2.cvtColor(original_image, cv2.COLOR_GRAY2BGR)
-
-        # print("deeplumen", self.deeplumen_on)
-
-        if(((self.deeplumen_on == 1 or (self.deeplumen_slim_on == 1 or self.deeplumen_lstm_on == 1)) and self.dest_frame=='target1') or self.endoanchor==1):
+        if(self.deeplumen_on == 1):
 
             # print("segmenting")
 
@@ -1122,13 +1082,6 @@ class PointCloudUpdater:
                         self.simple_far_pc.paint_uniform_color([0,0,1])
                      
                     
-
-
-          
-        
-
-            # self.vis.update_geometry(self.point_cloud)
-            #JUST DONT VISUALIZE IT
             self.vis.update_geometry(self.volumetric_near_point_cloud)
             self.vis.update_geometry(self.volumetric_far_point_cloud)
             if self.figure_mapping == 1:
@@ -1168,22 +1121,9 @@ class PointCloudUpdater:
                 self.view_control_1.set_lookat(lookat)
 
                 
-                
-
-    
-     
-                
-                
-    
-
-  
-
 
         # ------ TRACKER FRAMES ------ #
  
-
-        
-
         # tracker
         T_tracker = self.get_catheter_transform(TW_EM)
         self.tracker.transform(get_transform_inverse(self.previous_tracker_transform))
