@@ -41,35 +41,6 @@ sheep_3
 
 When a named dataset is requested and is not already present, `run_mapping.py` downloads the corresponding ZIP archive and extracts it automatically.
 
-Downloaded datasets are stored by default under:
-
-```text
-data/<dataset_name>/
-```
-
-Downloaded ZIP archives are cached under:
-
-```text
-data/.downloads/
-```
-
-The replay code accepts the following image-folder names:
-
-```text
-image_numpys
-image_npys
-grayscale_images
-```
-
-and the following EM-transform folder names:
-
-```text
-EM_data
-EM
-transform_data
-```
-
-Each image must have a corresponding 4 × 4 EM transform.
 
 ## System requirements
 
