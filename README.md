@@ -26,7 +26,7 @@ The associated IVUS–EM datasets are available from:
 
 https://zenodo.org/records/20737792
 
-The following named datasets are supported:
+The following named datasets from the 7 in-vitro aortic models built from [## aortic-vessel-tree (AVT) dataset](https://figshare.com/articles/dataset/Aortic_Vessel_Tree_AVT_CTA_Datasets_and_Segmentations/14806362), as well as datasets from the 3 in-vivo ovine studies are supported:
 
 ```text
 patient_1
