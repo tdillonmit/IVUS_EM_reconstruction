@@ -591,33 +591,7 @@ The script saves outputs only after a successful run produces:
 
 Review the preceding console output and configuration when any required geometry is empty.
 
-## Reproducibility checklist
 
-Before providing the repository to reviewers, confirm that:
-
-- [ ] `python --version` reports the tested Python version.
-- [ ] `requirements.txt` contains the exact tested package versions.
-- [ ] the exact `voxblox_pybind` commit is recorded.
-- [ ] `calibration_parameters_ivus.yaml` is present.
-- [ ] the model weights are accessible to reviewers.
-- [ ] `model_path` is repository-relative or reviewers are instructed to use `--model`.
-- [ ] no `/home/<username>/...` paths remain in Python or YAML files.
-- [ ] a fresh environment can import all dependencies.
-- [ ] `python run_mapping.py --help` succeeds.
-- [ ] at least one named dataset downloads and passes checksum verification.
-- [ ] a complete run creates all five expected outputs.
-- [ ] the measured reference runtime is recorded.
-- [ ] the repository contains no patient-identifying information, credentials, private keys, local datasets, or generated outputs.
-- [ ] the code license and public-release terms have been approved by the relevant institutional office.
-
-Search for machine-specific paths before release:
-
-```bash
-grep -RInE '/home/|C:\\' \
-    --include='*.py' \
-    --include='*.yaml' \
-    .
-```
 
 ## Citation
 
@@ -630,15 +604,6 @@ Dillon, T. M. et al. Learned ultrasound segmentation and deformable CT fusion
 for augmented reality endovascular surgery. Manuscript under review.
 ```
 
-Dataset:
-
-```text
-3D IVUS-EM Reconstruction and CT Registration Data for
-"Learned ultrasound segmentation and deformable CT fusion for augmented reality
-endovascular surgery", Dillon et al. Zenodo record 20737792.
-```
-
-The Voxblox Python binding repository also requests citation of the VDBFusion and original Voxblox publications; consult its repository README for the current citation text.
 
 ## Intended use
 
