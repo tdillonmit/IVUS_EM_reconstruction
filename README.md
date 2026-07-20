@@ -58,7 +58,7 @@ A CUDA-compatible GPU is optional for TensorFlow inference. TensorFlow uses an a
 
 ## Python environment
 
-Create and activate a Python 3.9 virtual environment:
+The total setup time (assuming requirements listed above) is approximately 15-20 minutes. To begin, create and activate a Python 3.9 virtual environment:
 
 ```bash
 python3.9 -m venv .venv
