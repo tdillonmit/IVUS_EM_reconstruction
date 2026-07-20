@@ -39,7 +39,7 @@ sheep_2
 sheep_3
 ```
 
-When a named dataset is requested and is not already present, `run_mapping.py` downloads the corresponding ZIP archive, verifies its MD5 checksum, and extracts it automatically.
+When a named dataset is requested and is not already present, `run_mapping.py` downloads the corresponding ZIP archive and extracts it automatically.
 
 Downloaded datasets are stored by default under:
 
