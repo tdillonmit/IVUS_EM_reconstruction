@@ -7,7 +7,7 @@ Offline reconstruction software accompanying:
 
 This repository performs learned intravascular ultrasound (IVUS) segmentation and three-dimensional reconstruction by combining IVUS images with synchronized electromagnetic (EM) tracking transforms. The command-line workflow can automatically download the associated datasets from Zenodo, run segmentation and TSDF fusion, display the reconstruction, and save reviewer-facing outputs.
 
-![Example IVUS–EM reconstruction](images/reconstruction_example.png)
+![Example IVUS–EM reconstruction](images/setup.png)
 
 ## Repository contents
 
