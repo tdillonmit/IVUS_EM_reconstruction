@@ -15,7 +15,7 @@ The files have the following roles:
 - `segmentation_helpers_runtime.py` — DeepLumen model definition, inference, and segmentation post-processing.
 - `reconstruction_helpers_runtime.py` — reconstruction, point-cloud, TSDF, transform, and visualization utilities used at runtime.
 - `aortascope_mapping_params.yaml` — mapping and model configuration.
-- `calibration_parameters_ivus.yaml` — repository-level default IVUS calibration values used during initialization. Dataset-specific calibration is loaded during replay when available.
+- `calibration_parameters_ivus.yaml` — Dataset-specific calibration is loaded during replay.
 - `requirements.txt` — pinned Python dependencies.
 
 ## Data
