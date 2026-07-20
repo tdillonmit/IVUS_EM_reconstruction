@@ -137,25 +137,9 @@ make install
 
 ## Model weights
 
-The trained DeepLumen model weights are required but are not downloaded from Zenodo by the current script.
+The trained DeepLumen model weights are downloaded from Zenodo by the current script and can be found [here](https://zenodo.org/records/21461780)
 
-Provide the model in either of two ways:
-
-1. Set `model_path` in `aortascope_mapping_params.yaml`.
-2. Supply the weights on the command line with `--model`.
-
-For example:
-
-```bash
-python run_mapping.py \
-    --dataset-name patient_1 \
-    --model /absolute/path/to/model.weights.h5
-```
-
-The command-line argument takes precedence over `model_path` in the YAML configuration.
-
-Before sharing the repository, make sure the weights are available to reviewers through the private review package, a stable repository, or a permanent data archive. Do not commit large model files directly to ordinary Git history when they exceed GitHub's file-size limits.
-
+Alternatively the model path can be provided in the `model_path` parameter via `aortascope_mapping_params.yaml`.
 
 ## Quick start
 
