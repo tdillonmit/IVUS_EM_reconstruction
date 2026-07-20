@@ -210,32 +210,6 @@ The command-line argument takes precedence over `model_path` in the YAML configu
 
 Before sharing the repository, make sure the weights are available to reviewers through the private review package, a stable repository, or a permanent data archive. Do not commit large model files directly to ordinary Git history when they exceed GitHub's file-size limits.
 
-## Calibration files
-
-Two calibration sources are used:
-
-1. `calibration_parameters_ivus.yaml` beside the Python scripts provides default values required during initialization.
-2. A calibration file within the selected dataset is loaded during replay when present.
-
-Recognized dataset calibration filenames are:
-
-```text
-calibration_parameters_ivus.yaml
-calibration_parameters_ivus.yml
-calibration_parameters_ivus
-```
-
-The dataset calibration file should contain:
-
-```yaml
-/angle: 0.0
-/translation: 0.0
-/radial_offset: 0.0
-/oclock: 0.0
-/scaling: 0.0001
-```
-
-Replace the example values with the values used for the corresponding acquisition. The replay code requires `/angle`, `/translation`, `/radial_offset`, and `/oclock`; `/scaling` is optional when a default scaling value is already available.
 
 ## Quick start
 
